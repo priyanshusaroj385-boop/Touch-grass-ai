@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TouchGrass AI | Outdoor Adventure</title>
+
+<style>
+:root {
+  --green: #145943;
+  --dark: #103d32;
+  --light: #edf5ec;
+  --cream: #faf9f2;
+  --text: #193b32;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--cream);
+  color: var(--text);
+}
+
+header {
+  padding: 20px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #e0e8df;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+  color: var(--green);
+}
+
+header p {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #65766d;
+}
+
+.status {
+  background: #e6f5e7;
+  padding: 10px 16px;
+  border-radius: 30px;
+  color: var(--green);
+  font-size: 13px;
+}
+
+.hero {
+  margin: 25px;
+  padding: 65px 45px;
+  border-radius: 20px;
+  color: white;
+  background:
+    linear-gradient(90deg, #103d32 5%, #103d32cc 45%, #103d3250),
+    url("https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+}
+
+.hero small {
+  font-size: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 5vw, 58px);
+  margin: 15px 0;
+}
+
+.hero p {
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+main {
+  max-width: 1400px;
+  margin: auto;
+  padding: 0 25px 40px;
+}
+
+.section {
+  background: white;
+  border: 1px solid #e1e8df;
+  border-radius: 18px;
+  padding: 28px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 20px #163d3210;
+}
+
+.section h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #718078;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 9px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5dfd7;
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 13px 18px;
+  background: var(--green);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  background: #237a5c;
+  transform: translateY(-2px);
+}
+
+.generate {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 15px;
+}
+
+.result {
+  margin-top: 22px;
+  padding: 22px;
+  background: var(--light);
+  border: 1px solid #d9e8d6;
+  border-radius: 14px;
+  display: none;
+  line-height: 1.8;
+}
+
+.result h3 {
+  margin: 8px 0;
+}
+
+.result ul {
+  margin: 10px 0 10px 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.card {
+  border-radius: 16px;
+  padding: 23px;
+  min-height: 235px;
+  border: 1px solid #e0e8df;
+  background: #eff6ec;
+}
+
+.card:nth-child(2) {
+  background: #fff5df;
+}
+
+.card:nth-child(3) {
+  background: #eaf4fb;
+}
+
+.card:nth-child(4) {
+  background: #f0ebfa;
+}
+
+.card .icon {
+  font-size: 32px;
+}
+
+.card h3 {
+  margin: 15px 0 10px;
+}
+
+.card p {
+  color: #53695f;
+  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.card button {
+  padding: 11px 14px;
+  font-size: 13px;
+}
+
+.journal {
+  display: none;
+}
+
+.journal textarea {
+  min-height: 120px;
+  margin: 12px 0;
+  resize: vertical;
+}
+
+#entries {
+  margin-top: 18px;
+}
+
+.entry {
+  padding: 14px;
+  margin-top: 10px;
+  background: var(--light);
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  padding: 25px;
+  text-align: center;
+  color: #718078;
+  font-size: 13px;
+}
+
+footer strong {
+  color: var(--green);
+}
+
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  header {
+    padding: 18px;
+  }
+
+  .logo {
+    font-size: 21px;
+  }
+
+  .hero {
+    margin: 12px;
+    padding: 40px 22px;
+  }
+
+  main {
+    padding: 0 12px 25px;
+  }
+
+  .section {
+    padding: 20px;
+  }
+
+  .form-grid, .cards {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <div class="logo">🌿 TouchGrass AI</div>
+    <p>Real Places · Real Experiences · Better You</p>
+  </div>
+  <div class="status">● Outdoor Ready</div>
+</header>
+
+<section class="hero">
+  <small>✦ YOUR OUTDOOR ADVENTURE COMPANION</small>
+  <h1>TouchGrass AI</h1>
+  <h2>Discover. Explore. Reconnect.</h2>
+  <p>
+    Discover outdoor adventures, learn about nature,
+    grow your garden, and reconnect with the world
+    beyond your screen.
+  </p>
+</section>
+
+<main>
+
+<section class="section" id="adventure">
+  <h2>✨ AI Adventure Generator</h2>
+  <p class="subtitle">
+    Choose your mood, available time, and interests
+    to discover your next outdoor activity.
+  </p>
+
+  <div class="form-grid">
+    <div>
+      <label for="mood">Your Mood</label>
+      <select id="mood">
+        <option value="relaxed">😊 Relaxed</option>
+        <option value="adventurous">🏕️ Adventurous</option>
+        <option value="creative">🎨 Creative</option>
+        <option value="curious">🔎 Curious</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="time">Time Available</label>
+      <select id="time">
+        <option value="20 minutes">20 minutes</option>
+        <option value="1 hour">1 hour</option>
+        <option value="2 hours">2 hours</option>
+        <option value="half a day">Half a day</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="interest">Your Interest</label>
+      <select id="interest">
+        <option value="nature">🌿 Nature walks</option>
+        <option value="photography">📸 Photography</option>
+        <option value="gardening">🌱 Gardening</option>
+        <option value="birds">🐦 Birdwatching</option>
+        <option value="fitness">🚶 Walking and fitness</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="location">Location (optional)</label>
+      <input id="location" type="text"
+        placeholder="e.g. Lucknow">
+    </div>
+  </div>
+
+  <button class="generate" onclick="generateAdventure()">
+    ✨ Generate My Adventure
+  </button>
+
+  <div class="result" id="result" aria-live="polite"></div>
+</section>
+
+<section class="cards">
+
+  <article class="card">
+    <div class="icon">📔</div>
+    <h3>Nature Journal</h3>
+    <p>Record your outdoor experiences, discoveries,
+      and observations in a personal journal.</p>
+    <button onclick="openJournal()">Open Journal →</button>
+  </article>
+
+  <article class="card">
+    <div class="icon">🌱</div>
+    <h3>Garden Assistant</h3>
+    <p>Explore gardening ideas and learn about
+      plants, soil, and seasonal care.</p>
+    <button onclick="askGarden()">Explore Gardening →</button>
+  </article>
+
+  <article class="card">
+    <div class="icon">🔭</div>
+    <h3>Explore Nature</h3>
+    <p>Observe birds, plants, trees, and insects.
+      Record what you discover outdoors.</p>
+    <button onclick="exploreNature()">Start Exploring →</button>
+  </article>
+
+  <article class="card">
+    <div class="icon">✅</div>
+    <h3>Outdoor Checklist</h3>
+    <p>Prepare for your next adventure with a
+      simple outdoor activity checklist.</p>
+    <button onclick="showChecklist()">View Checklist →</button>
+  </article>
+
+</section>
+
+<section class="section journal" id="journal">
+  <h2>📔 My Nature Journal</h2>
+  <p class="subtitle">
+    Write about something interesting you noticed outdoors.
+  </p>
+
+  <label for="journalText">Your observation</label>
+  <textarea id="journalText"
+    placeholder="Today I noticed..."></textarea>
+
+  <button onclick="saveJournal()">Save Observation</button>
+  <div id="entries"></div>
+</section>
+
+<section class="section" id="checklist" style="display:none">
+  <h2>🎒 Outdoor Checklist</h2>
+  <p class="subtitle">Prepare before heading outside.</p>
+
+  <div id="checkItems"></div>
+
+  <button onclick="saveChecklist()">Save Checklist</button>
+</section>
+
+</main>
+
+<footer>
+  Made with 💚 using HTML, CSS & JavaScript<br><br>
+  <strong>TouchGrass AI</strong> · Open innovation for a greener world
+</footer>
+
+<script>
+function generateAdventure() {
+  const mood = document.getElementById("mood").value;
+  const time = document.getElementById("time").value;
+  const interest = document.getElementById("interest").value;
+  const location = document.getElementById("location").value.trim();
+
+  const activities = {
+    nature: {
+      title: "Mindful Nature Walk",
+      description: "Explore a nearby park or safe walking path. Notice the trees, clouds, leaves, and sounds around you.",
+      tasks: [
+        "Observe three different plants.",
+        "Notice five natural sounds.",
+        "Write down one new thing you discovered."
+      ]
+    },
+    photography: {
+      title: "Nature Photography Hunt",
+      description: "Take a walk and look for interesting patterns, natural textures, flowers, and sunlight.",
+      tasks: [
+        "Photograph an interesting leaf.",
+        "Find a natural pattern or reflection.",
+        "Capture a landscape or the sky."
+      ]
+    },
+    gardening: {
+      title: "Mini Gardening Adventure",
+      description: "Explore your garden or a suitable outdoor growing space and learn about the plants growing there.",
+      tasks: [
+        "Observe the leaves of two plants.",
+        "Check whether the soil needs water.",
+        "Record one question about plant growth."
+      ]
+    },
+    birds: {
+      title: "Birdwatching Discovery",
+      description: "Spend some quiet time in a suitable outdoor space observing birds from a respectful distance.",
+      tasks: [
+        "Look for birds without disturbing them.",
+        "Notice their colours and behaviour.",
+        "Record your observations in your journal."
+      ]
+    },
+    fitness: {
+      title: "Fresh-Air Walking Challenge",
+      description: "Choose a safe, familiar walking route and enjoy some gentle outdoor movement.",
+      tasks: [
+        "Choose a comfortable walking pace.",
+        "Notice changes in the scenery.",
+        "Take a break and enjoy the surroundings."
+      ]
+    }
+  };
+
+  const activity = activities[interest];
+  const moodText = {
+    relaxed: "Keep things peaceful and unhurried.",
+    adventurous: "Look for something new in a familiar place.",
+    creative: "Pay attention to colours, shapes, and patterns.",
+    curious: "Ask questions and investigate your surroundings."
+  };
+
+  const place = location
+    ? " Suggested area: " + escapeHTML(location) +
+      ". Check local access and conditions before going."
+    : " Choose a nearby, safe, publicly accessible place.";
+
+  const result = document.getElementById("result");
+
+  result.innerHTML = `
+    <small>🌿 YOUR PERSONALIZED ADVENTURE</small>
+    <h3>${activity.title}</h3>
+    <p>${activity.description}</p>
+    <p><strong>Time:</strong> ${escapeHTML(time)}</p>
+    <p><strong>Your approach:</strong> ${moodText[mood]}</p>
+    <p>${place}</p>
+    <h4>Your mission</h4>
+    <ul>${activity.tasks.map(task =>
+      `<li>${task}</li>`).join("")}</ul>
+    <button onclick="saveAdventure('${interest}')">
+      Save This Adventure
+    </button>
+    <p><small>Generated using built-in suggestions, not a live AI model.</small></p>
+  `;
+
+  result.style.display = "block";
+  result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function escapeHTML(value) {
+  return value.replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function openJournal() {
+  const journal = document.getElementById("journal");
+  journal.style.display = "block";
+  journal.scrollIntoView({ behavior: "smooth" });
+  renderEntries();
+}
+
+function saveJournal() {
+  const field = document.getElementById("journalText");
+  const text = field.value.trim();
+
+  if (!text) {
+    alert("Please write an observation first.");
+    return;
+  }
+
+  const entries = JSON.parse(
+    localStorage.getItem("tg-journal") || "[]"
+  );
+
+  entries.unshift({
+    text,
+    date: new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem("tg-journal", JSON.stringify(entries));
+  field.value = "";
+  renderEntries();
+}
+
+function renderEntries() {
+  const entries = JSON.parse(
+    localStorage.getItem("tg-journal") || "[]"
+  );
+
+  document.getElementById("entries").innerHTML =
+    entries.map(entry => `
+      <div class="entry">
+        <small>${escapeHTML(entry.date)}</small>
+        <p>${escapeHTML(entry.text)}</p>
+      </div>
+    `).join("");
+}
+
+function askGarden() {
+  const section = document.getElementById("adventure");
+  document.getElementById("interest").value = "gardening";
+  section.scrollIntoView({ behavior: "smooth" });
+  generateAdventure();
+}
+
+function exploreNature() {
+  document.getElementById("interest").value = "birds";
+  document.getElementById("adventure")
+    .scrollIntoView({ behavior: "smooth" });
+  generateAdventure();
+}
+
+const checklistItems = [
+  "Water bottle",
+  "Comfortable footwear",
+  "Weather-appropriate clothing",
+  "Phone for emergencies",
+  "Sun protection when needed",
+  "Respect wildlife and leave no litter"
+];
+
+function showChecklist() {
+  const section = document.getElementById("checklist");
+  const saved = JSON.parse(
+    localStorage.getItem("tg-checklist") || "{}"
+  );
+
+  document.getElementById("checkItems").innerHTML =
+    checklistItems.map((item, index) => `
+      <label style="display:flex;gap:12px;align-items:center;
+                    margin:18px 0;font-weight:normal">
+        <input type="checkbox" data-index="${index}"
+          style="width:auto"
+          ${saved[index] ? "checked" : ""}>
+        ${item}
+      </label>
+    `).join("");
+
+  section.style.display = "block";
+  section.scrollIntoView({ behavior: "smooth" });
+}
+
+function saveChecklist() {
+  const saved = {};
+
+  document.querySelectorAll("#checkItems input").forEach(input => {
+    saved[input.dataset.index] = input.checked;
+  });
+
+  localStorage.setItem("tg-checklist", JSON.stringify(saved));
+  alert("Checklist saved on this device!");
+}
+
+function saveAdventure(interest) {
+  const saved = JSON.parse(
+    localStorage.getItem("tg-adventures") || "[]"
+  );
+
+  saved.unshift({
+    interest,
+    date: new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem("tg-adventures", JSON.stringify(saved));
+  alert("Adventure saved on this device!");
+}
+
+renderEntries();
+</script>
+
+</body>
+</html>
